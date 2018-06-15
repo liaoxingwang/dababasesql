@@ -1,0 +1,223 @@
+JAVA高级工程师就是在实践中不断的磨练增加技术经验，不断地学习新技术充实自己，Java就是高并发等等或联网应用最多的后台技术
+--学思危
+
+git config --global http.proxy  //git代理网络
+
+
+git config --global --unset http.proxy //取消
+
+
+1.单据页面width: 600,height: 550,
+2.历史交易记录页面width: 650,height: 300,
+3.文本框宽度width: 270,前面文字宽度labelWidth: 80,(根据实际情况而定)
+4.所有new Ext.Window，创建的页面都得加上  closeAction: 'hide' (保证页面可以重复创建)
+5.命名规范： (最好打注释)
+	自己建一个js文件，把所有的js放进去，js名称就用自己名字简拼，hhk.js
+	页面：黄后康画的采购入库单页面 hhk+Window+cgru   hhkWindowcgru  
+	其它参数：hhk+参数名称 
+
+创建命名空间
+   create tablespace testyfw
+   datafile 'D:/Oracle/testyfw.dbf' size 500M  
+   autoextend on next 100M maxsize unlimited logging
+   extent management local autoallocate
+   segment space management auto;
+   create user testyfw identified by testyfw;
+   grant connect to testyfw;
+   grant resource to testyfw;
+   grant create synonym to testyfw;
+   //第一行testyfw处填你的命名空间名称
+   //第二行填你要存放的路径+你的命名空间名称.dbf
+   //第六行设置你的用户名与密码。前面用户名后面密码
+   //剩下的testyfw处填写你的用户名
+
+comment  on  column  表名.字段名   is  '注释内容';
+
+comment on column OPERATOR_INFO.MAIN_OPER_ID is '归属操作员';
+
+comment on table 表名  is  '注释内容';
+
+comment on table OPERATOR_INFO is  '操作员信息表';
+
+select * from purchase;
+select * from costDetail;
+select * from shareDetail;
+insert into purchase 
+	(id, 
+	sdate, 
+	stype, 
+	smoney, 
+	touching, 
+	account, 
+	checkStatus, 
+	demo1, 
+	demo2, 
+	demo3
+	)
+	values
+	('2018061201', 
+	'20180612', 
+	'1', 
+	'100', 
+	'touching', 
+	'account', 
+	'0, 
+	'demo1', 
+	'demo2', 
+	'demo3'
+	);
+
+
+insert into costdetail 
+	(cid, 
+	pid, 
+	cloud, 
+	costname, 
+	currency, 
+	exchangeraRate, 
+	money, 
+	standardCoin, 
+	checkStatus, 
+	demo1, 
+	demo2, 
+	demo3
+	)
+	values
+	('cid', 
+	'pid', 
+	'cloud', 
+	'costname', 
+	'currency', 
+	'exchangeraRate', 
+	'money', 
+	'standardCoin', 
+	'checkStatus', 
+	'demo1', 
+	'demo2', 
+	'demo3'
+	);
+
+
+insert into shareDetail (sid,pid,cloud ,material,sname,model,smoney,numbers,sprice,sweight,svolume,shares,checkStatus，demo1,demo2,demo3
+) values
+()
+
+
+外键
+alter table 表1-表名 
+add constraint 外键名称(一般外键名称为”fK_”开头) foreign key (要设为外键的列名) 
+references 表2-表名(与哪个表有关联) (表2中该列列名);
+	
+scott   密码是 tiger
+
+sys     密码是 change_on_install
+
+system  密码是 manager
+
+sysman  密码是 oem_temp
+
+primary key
+references dept(deptno) --dept表中deptno字段 为 emp表的外键
+
+CREATE SEQUENCE SEQ_DATA_LIST_ID– SEQ_DATA_LIST_ID 自动增长列 
+INCREMENT BY 1 – 每次加几个 
+START WITH 1 – 从1开始计数 
+NOMAXVALUE – 不设置最大值 
+NOCYCLE – 一直累加，不循环 
+NOCACHE
+
+sqlplus five@ORCLDB
+
+
+管理主体：企业（Enterprise）
+
+管理对象：资源（Resource）
+材料 （Material）
+人力 （Manpower）
+设备 （Machine)
+资金 （Money）
+方法 （Method）
+数据 （Data)
+                        ---- 5M1D
+
+管理手段：计划（Planning）与控制
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="">
+
+    <insert id="addPurchase" resultType="com.j5erp.entity.Purchase">
+        insert into purchase (id, sdate, stype, smoney, touching, account, checkStatus, demo1, demo2, demo3) values
+        (#{id}, #{sdate}, #{stype}, #{smoney}, #{touching}, #{account}, #{checkStatus}, #{demo1}, #{demo2}, #{demo3});
+    </insert>
+</mapper>
+
+
+
+6.所有的单据中的grid表格，都得加上双击出出现新的一行，可编辑(用于新增单据)
+		代码:	listeners: { 
+					containerdblclick: function (grid, e, eOpts) {
+					//双击事件的操作
+					grid.getStore().add({});
+					}
+						    },
+							//开启编辑模式
+						    plugins: [
+						        Ext.create('Ext.grid.plugin.CellEditing', {
+						            clicksToEdit: 1
+						        })
+						    ]
+
+7.右键菜单代码： 		var menu = Ext.create('Ext.menu.Menu', {
+					items: [{
+						id: 'menu1',
+						text: '天秀'
+					}, {
+						id: 'menu2',
+						text: '陈独秀',
+						iconCls: 'icon-prev'
+					}, {
+						id: 'menu3',
+						text: '蒂花之秀',
+						iconCls: 'icon-prev'
+					}]
+				})
+				//禁止整个页面的右键
+				Ext.getDoc().on("contextmenu", function(e) {
+					e.stopEvent();
+				});
+				//注册右键
+				Ext.getBody().on("contextmenu", function(e) {
+					menu.showAt(e.getPoint().x, e.getPoint().y); //显示在当前位置 
+				});
+8.f4打开页面代码，放在需要使用的文本框那里即可
+				enableKeyEvents: true,
+					listeners: {
+						render: function(field) {
+							Ext.QuickTips.init();
+							Ext.QuickTips.register({
+								target: field.el,
+								text: '按F4选择客户'
+							})
+						},
+
+						keyup: function(textField, e) {
+
+							if(e.getKey() == 115) {
+
+								windows3.show();
+
+							}
+
+						}
+					}
+
+
+
+
+	
